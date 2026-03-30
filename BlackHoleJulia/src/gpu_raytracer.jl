@@ -6,6 +6,17 @@ using LinearAlgebra
 
 export render_gpu
 
+# Simple hash function to generate pseudo-random stars on GPU
+@inline function star_brightness(dx::Float32, dy::Float32, dz::Float32)
+    # Convert ray direction to "sky coordinates"
+    ix = Int32(floor(dx * 800.0f0)) * Int32(73856093)
+    iy = Int32(floor(dy * 800.0f0)) * Int32(19349663)
+    iz = Int32(floor(dz * 800.0f0)) * Int32(83492791)
+    h  = xor(ix, iy, iz)
+    # Only ~1% of sky positions are stars
+    return (mod(abs(h), Int32(250)) < Int32(1)) ? 1.0f0 : 0.0f0
+end
+
 @kernel function raytrace_kernel!(img, M, width, height, cam_dist)
     i, j = @index(Global, NTuple)
 
@@ -14,7 +25,8 @@ export render_gpu
     disk_outer = 8.0f0
     fov        = Float32(π / 3.0)
 
-    px = (2.0f0 * (i - 0.5f0) / width  - 1.0f0) * tan(fov / 2.0f0)
+    aspect = width / height
+    px = (2.0f0 * (i - 0.5f0) / width  - 1.0f0) * tan(fov / 2.0f0) * aspect
     py = (2.0f0 * (j - 0.5f0) / height - 1.0f0) * tan(fov / 2.0f0)
 
     dx, dy, dz = -1.0f0, px, py
@@ -23,8 +35,12 @@ export render_gpu
 
     x, y, z    = cam_dist, 0.0f0, 0.5f0
     vx, vy, vz = dx, dy, dz
+    final_dx = vx; final_dy = vy; final_dz = vz
+    len = sqrt(final_dx^2 + final_dy^2 + final_dz^2) + 1f-6
+    final_dx /= len; final_dy /= len; final_dz /= len
 
-    pixel_val = 0.0f0
+    star = star_brightness(final_dx, final_dy, final_dz)
+    pixel_val = star * 0.9f0
     dt        = 0.05f0
 
     for _ in 1:2000

@@ -8,14 +8,12 @@ println("Rendering wallpaper...")
 
 # 4K resolution — your RTX 4070 can handle it!
 # Render square first, then embed in 16:9 canvas
-@time img = render_gpu(2160, 2160, 1.0f0; cam_dist=20.0f0)   # square render
+@time img = render_gpu(3840, 2160, 1.0f0; cam_dist=20.0f0)   # square render
 
 # Pad with black on sides to make 16:9
 using Images
-black_pad = zeros(Float32, 2160, 840)   # (3840-2160)/2 = 840 each side
-img_wide  = hcat(black_pad, img, black_pad)   # 3840 × 2160
 
-heatmap(Float64.(img_wide),
+heatmap(Float64.(img),
     color=:inferno,
     axis=false,
     border=:none,
