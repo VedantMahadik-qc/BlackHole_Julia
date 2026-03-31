@@ -135,6 +135,6 @@ println("Rendering RGB Kerr black hole...")
 
 @time img = render_rgb(3840, 2160, 1.0f0, 0.9f0, 0.5f0)
 
-mkpath("output")
-save("output/kerr_rgb_4K.png", img)
+mkpath(joinpath(@__DIR__, "..", "output"))
+save(joinpath(@__DIR__, "..", "output", "kerr_rgb_4K.png", img))
 println("Saved → output/kerr_rgb_4K.png")

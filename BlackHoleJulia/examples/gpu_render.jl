@@ -27,6 +27,6 @@ heatmap(Float64.(img),
     bottom_margin=(-8, :mm),
     dpi=200
 )
-mkpath("output")
-savefig("output/blackhole_wallpaper_4K.png")
+mkpath(joinpath(@__DIR__, "..", "output"))
+savefig(joinpath(@__DIR__, "..", "output", "blackhole_wallpaper_4K.png"))
 println("Done! Saved to output/blackhole_wallpaper_4K.png")

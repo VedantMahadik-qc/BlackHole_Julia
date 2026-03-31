@@ -90,8 +90,8 @@ function main()
     end
 
     println("Saving GIF...")
-    mkpath("output")
-    gif(anim, "output/flyby_animation.gif", fps=30)
+    mkpath(joinpath(@__DIR__, "..", "output"))
+    gif(anim, joinpath(@__DIR__, "..", "output", "flyby_animation.gif", fps=30))
     println("Done! Saved to output/flyby_animation.gif")
 end
 

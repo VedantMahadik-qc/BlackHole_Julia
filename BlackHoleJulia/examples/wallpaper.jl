@@ -111,7 +111,7 @@ println("GPU: ", CUDA.name(CUDA.device()))
 println("Rendering $(W)×$(H) wallpaper  (a=$(a), cam_z=$(cam_z))...")
 @time img = render_wallpaper(W, H, a, cam_z)
 
-mkpath("output")
-out = "output/wallpaper_$(W)x$(H)_a$(a).png"
+mkpath(joinpath(@__DIR__, "..", "output"))
+out = joinpath(@__DIR__, "..", "output", "wallpaper_$(W)x$(H)_a$(a).png")
 save(out, img)
 println("✅ Done → $out")
