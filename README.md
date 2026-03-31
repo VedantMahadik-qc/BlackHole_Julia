@@ -1,10 +1,10 @@
-# BlackHole.jl 
+# BlackHole.jl 🕳️
 
 > GPU-accelerated Kerr black hole raytracer written in Julia.  
-> Renders a physically accurate spinning black hole with relativistic 
+> Renders a physically accurate spinning black hole with relativistic  
 > accretion disk in seconds on consumer hardware.
 
-![Kerr Black Hole](output/wallpaper_3840x2160_a0.9.png)
+![Kerr Black Hole](BlackHoleJulia/output/wallpaper_3840x2160_a0.9.png)
 
 ---
 
@@ -25,7 +25,6 @@
 ### Requirements
 - Julia 1.10+
 - NVIDIA GPU with CUDA support
-- ~2GB disk space for Julia packages
 
 ### Install
 
@@ -39,14 +38,19 @@ julia --project=. -e 'using Pkg; Pkg.instantiate()'
 
 ```bash
 julia --project=. BlackHoleJulia/examples/kerr_render.jl
-# Output → output/wallpaper_3840x2160.png
 ```
 
-### Interactive Orbital Viewer
+### Wallpaper Render (3840×2160)
+
+```bash
+julia --project=. BlackHoleJulia/examples/wallpaper.jl
+```
+
+### Live Interactive Viewer
 
 ```bash
 julia --project=. BlackHoleJulia/examples/kerr_interactive.jl
-# Drag mouse to orbit the black hole in real time
+# Drag mouse to orbit around the black hole in real time
 ```
 
 ---
@@ -55,35 +59,33 @@ julia --project=. BlackHoleJulia/examples/kerr_interactive.jl
 
 | Parameter | Description | Default |
 |---|---|---|
-| `a` | Spin (0 = Schwarzschild, 0.99 = near-max Kerr) | `0.99` |
+| `a` | Spin (0 = Schwarzschild, 0.99 = near-max Kerr) | `0.9` |
 | `M` | Black hole mass (geometric units) | `1.0` |
-| `cam_z` | Camera elevation above disk plane | `0.8` |
-| `disk_outer` | Accretion disk outer radius | `14.0` |
+| `cam_z` | Camera elevation above disk plane | `0.5` |
+| `disk_outer` | Accretion disk outer radius | `12.0` |
 | `W, H` | Output resolution | `3840×2160` |
-
----
-
-## 🔭 Physics
-
-Geodesics are integrated using a simplified Boyer-Lindquist form of the 
-Kerr metric. The frame dragging term couples photon velocity components 
-via the angular momentum parameter `ω = 2Mar / (ρ⁴ + a²r²)`.  
-Accretion disk colour follows a blackbody temperature gradient — inner 
-orbits (high `t`) render white-hot, outer orbits cool to deep crimson.
 
 ---
 
 ## 📸 Gallery
 
-| Gargantua style (z=0.5) | M87* style (z=0.0) | Ultimate (a=0.99) |
+| Gargantua style | M87* style | RGB Kerr |
 |---|---|---|
-| *(add your renders)* | *(add your renders)* | *(add your renders)* |
+| <img src="BlackHoleJulia/output/blackhole_wallpaper_4K.png" width="400"> | <img src="BlackHoleJulia/output/kerr_a0.9_4K.png" width="400"> | <img src="BlackHoleJulia/output/kerr_rgb_4K.png" width="400"> |
+---
+
+## 🔭 Physics
+
+Geodesics are integrated in Boyer-Lindquist coordinates using the Kerr metric.
+Frame dragging couples photon velocity components via angular momentum
+`ω = 2Mar / (ρ⁴ + a²r²)`. The accretion disk uses a blackbody temperature
+gradient — inner orbits render white-hot, outer orbits cool to deep crimson.
 
 ---
 
 ## 🛠️ Built With
 
-- [Julia](https://julialang.org/) 
+- [Julia](https://julialang.org/)
 - [CUDA.jl](https://github.com/JuliaGPU/CUDA.jl)
 - [KernelAbstractions.jl](https://github.com/JuliaGPU/KernelAbstractions.jl)
 - [GLMakie.jl](https://github.com/MakieOrg/Makie.jl)
