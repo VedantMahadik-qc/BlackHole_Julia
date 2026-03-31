@@ -21,7 +21,7 @@ Built from scratch in one evening — no external physics libraries.
 ## Output
 
 ### 4K Wallpaper Render
-*(Upload your best wallpaper PNG here via GitHub UI)*
+*output/kerr_a0.9_4K.png*
 
 ### Particle Flyby Animation
 *(Upload flyby_animation.gif here via GitHub UI)*

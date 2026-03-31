@@ -44,7 +44,8 @@ using FileIO
             r_cross = sqrt(x^2 + y^2)
             if disk_inner < r_cross < disk_outer
                 t       = 1.0f0 - (r_cross - disk_inner) / (disk_outer - disk_inner)
-                doppler = 1.0f0 + 0.8f0 * a * (y / (r_cross + 1f-6))
+                # doppler = 1.0f0 + 0.8f0 * a * (y / (r_cross + 1f-6))
+                doppler = 1.0f0 + 0.8f0 * a * (x / (r_cross + 1f-6))
                 bright  = clamp(sqrt(t) * doppler * 1.2f0, 0.0f0, 1.0f0)
 
 # Colour temperature uses t directly (NOT multiplied by bright again)
