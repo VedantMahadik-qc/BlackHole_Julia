@@ -1,80 +1,90 @@
-# BlackHole_Julia 🌌
+# BlackHole.jl 
 
-A physically-based **black hole ray tracer** written in Julia, 
-GPU-accelerated via CUDA.jl on an NVIDIA RTX 4070 Laptop GPU.
+> GPU-accelerated Kerr black hole raytracer written in Julia.  
+> Renders a physically accurate spinning black hole with relativistic 
+> accretion disk in seconds on consumer hardware.
 
-Built from scratch in one evening — no external physics libraries.
-
----
-
-## Features
-- ⚡ **GPU-accelerated** ray tracing via `KernelAbstractions.jl` + `CUDA.jl`
-- 🔭 **Schwarzschild metric** — geodesic light ray integration
-- 💡 **Gravitational lensing** — accretion disk light bends over event horizon
-- 🌟 **Lensed star field** — background stars warp around the black hole
-- 🟠 **Doppler brightening** — accretion disk asymmetry simulation
-- 🎬 **Particle animation** — orbit, flyby, and spiral infall scenarios
-- 🖼️ **4K wallpaper output** in ~12 seconds on RTX 4070
+![Kerr Black Hole](output/wallpaper_3840x2160_a0.9.png)
 
 ---
 
-## Output
+## ✨ Features
 
-### 4K Wallpaper Render
-*output/kerr_a0.9_4K.png*
-
-### Particle Flyby Animation
-*(Upload flyby_animation.gif here via GitHub UI)*
+- **Kerr metric geodesic raytracing** — full spinning black hole physics
+- **Frame dragging** — spacetime rotation via spin parameter `a` (0→1)
+- **Relativistic Doppler boosting** — asymmetric disk brightness from spin
+- **RGB blackbody accretion disk** — white-hot inner edge → deep crimson outer
+- **4K GPU rendering** — ~10 seconds on RTX 4070 via CUDA.jl
+- **Live orbital viewer** — drag to orbit the black hole in real time (GLMakie)
+- **Coloured starfield** — blue/white/red stars by temperature class
 
 ---
 
-## How to Run
+## 🚀 Quick Start
 
 ### Requirements
 - Julia 1.10+
-- NVIDIA GPU with CUDA (for GPU render)
+- NVIDIA GPU with CUDA support
+- ~2GB disk space for Julia packages
 
-### Install Dependencies
-```julia
-julia --project=.
-] add OrdinaryDiffEq Plots KernelAbstractions CUDA
+### Install
+
+```bash
+git clone https://github.com/VedantMahadik-qc/BlackHole_Julia
+cd BlackHole_Julia
+julia --project=. -e 'using Pkg; Pkg.instantiate()'
 ```
 
-### CPU Render (any machine)
+### Static 4K Render
+
 ```bash
-julia --project=. --threads=auto BlackHoleJulia/examples/basic_render.jl
+julia --project=. BlackHoleJulia/examples/kerr_render.jl
+# Output → output/wallpaper_3840x2160.png
 ```
 
-### GPU Render (NVIDIA only)
-```bash
-julia --project=. BlackHoleJulia/examples/gpu_render.jl
-```
+### Interactive Orbital Viewer
 
-### Particle Animation
 ```bash
-julia --project=. --threads=auto BlackHoleJulia/examples/flyby_animation.jl
+julia --project=. BlackHoleJulia/examples/kerr_interactive.jl
+# Drag mouse to orbit the black hole in real time
 ```
 
 ---
 
-## Physics
+## 🎛️ Parameters
 
-Light rays follow **geodesics** in Schwarzschild spacetime. 
-The geodesic equation in geometric units (G=c=1):
-
-d²xᵢ/dλ² = -2M/r³ · xᵢ
-
-Rays that cross the **Schwarzschild radius** `r_s = 2M` are absorbed. 
-Rays crossing the accretion disk plane within `[1.5·r_s, 8M]` are lit 
-with Doppler-shifted brightness.
-
----
-
-## Inspired By
-- Kavan's black hole simulation in C++
-- Kip Thorne's scientific work on Interstellar's Gargantua
-- Event Horizon Telescope imaging of M87*
+| Parameter | Description | Default |
+|---|---|---|
+| `a` | Spin (0 = Schwarzschild, 0.99 = near-max Kerr) | `0.99` |
+| `M` | Black hole mass (geometric units) | `1.0` |
+| `cam_z` | Camera elevation above disk plane | `0.8` |
+| `disk_outer` | Accretion disk outer radius | `14.0` |
+| `W, H` | Output resolution | `3840×2160` |
 
 ---
 
-*Built with Julia 1.12 · Pop!_OS · RTX 4070 Laptop GPU*
+## 🔭 Physics
+
+Geodesics are integrated using a simplified Boyer-Lindquist form of the 
+Kerr metric. The frame dragging term couples photon velocity components 
+via the angular momentum parameter `ω = 2Mar / (ρ⁴ + a²r²)`.  
+Accretion disk colour follows a blackbody temperature gradient — inner 
+orbits (high `t`) render white-hot, outer orbits cool to deep crimson.
+
+---
+
+## 📸 Gallery
+
+| Gargantua style (z=0.5) | M87* style (z=0.0) | Ultimate (a=0.99) |
+|---|---|---|
+| *(add your renders)* | *(add your renders)* | *(add your renders)* |
+
+---
+
+## 🛠️ Built With
+
+- [Julia](https://julialang.org/) 
+- [CUDA.jl](https://github.com/JuliaGPU/CUDA.jl)
+- [KernelAbstractions.jl](https://github.com/JuliaGPU/KernelAbstractions.jl)
+- [GLMakie.jl](https://github.com/MakieOrg/Makie.jl)
+- [Images.jl](https://github.com/JuliaImages/Images.jl)
