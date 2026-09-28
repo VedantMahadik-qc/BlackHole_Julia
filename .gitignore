@@ -28,3 +28,6 @@ LocalPreferences.toml
 JuliaLocalPreferences.toml
 
 # Output renders — tracked intentionally
+
+# Launch video build output
+brag-output/

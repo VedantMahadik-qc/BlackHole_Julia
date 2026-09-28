@@ -1,5 +1,9 @@
 # BlackHole.jl 🕳️
 
+[![BlackHole.jl demo: 4K Kerr raytracer and flyby simulation](assets/hero-poster.jpg)](assets/demo.mp4)
+
+**[▶ Watch the demo video](assets/demo.mp4)**: the 4K GPU Kerr raytracer and the black hole flyby simulation in action.
+
 > GPU-accelerated Kerr black hole raytracer written in Julia.  
 > Renders a physically accurate spinning black hole with relativistic  
 > accretion disk in seconds on consumer hardware.
