@@ -31,3 +31,6 @@ JuliaLocalPreferences.toml
 
 # Launch video build output
 brag-output/
+
+# Local Claude Code config / skills
+.claude/
