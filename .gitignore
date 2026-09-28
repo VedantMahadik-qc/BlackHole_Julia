@@ -34,3 +34,6 @@ brag-output/
 
 # Local Claude Code config / skills
 .claude/
+
+# Raw frame dump
+BlackHoleJulia/output/orbit_rgb/
