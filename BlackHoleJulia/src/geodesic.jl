@@ -27,7 +27,7 @@ function trace_ray(pos0::Vector{Float64}, dir0::Vector{Float64}, M::Float64;
 
     u0   = vcat(pos0, normalize(dir0))
     prob = ODEProblem(geodesic_ode!, u0, tspan)
-    sol  = solve(prob, RK4(), dt=dt, adaptive=false)
+    sol  = solve(prob, Tsit5(), dt=dt, adaptive=false)
     return sol
 end
 
